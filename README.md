@@ -37,4 +37,17 @@ AC=corpus_ca(corpus2, dtm2) #analyse de correspondance
 explor(AC)
 CAH=corpus_clustering(AC) #classification ascendante hiérarchique
 plot(CAH$call$t$tree)
+
+## ----Recherche de Cooccurrences--------------------------------
+cooc_terms(dtm, 'deus')
+#graphe de mots sur le DTM ou Analyse de données relationnelles (SNA)
+terms_graph(dtm, vertex.label.cex = 0.5, )
+
+#Méthode Alceste (Analyse des Lexèmes co-occurents dans les énoncés simples d'un texte)
+#Rainette (The Reinert Method for Textual Data Clustering)
+library(rainette)
+library(quanteda)
+dfm <- as.dfm(dtm)
+resrai <- rainette(dfm, k = 10, min_segment_size = 0)
+rainette_explor(resrai, dfm, corpus_src = dfm)
 ```
