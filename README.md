@@ -39,7 +39,6 @@ CAH=corpus_clustering(AC) #classification ascendante hiérarchique
 plot(CAH$call$t$tree)
 
 ## ----Recherche de Cooccurrences--------------------------------
-cooc_terms(dtm, 'deus')
 #graphe de mots sur le DTM ou Analyse de données relationnelles (SNA)
 terms_graph(dtm, vertex.label.cex = 0.5, )
 
