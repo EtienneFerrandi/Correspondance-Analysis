@@ -16,19 +16,16 @@ X2=X[c(1:200), c(1:10)] #sélection des deux cent mots les plus fréquents et de
 AFC=CA(X2, graph = TRUE) #analyse factorielle de correspondances sur une table de fréquences de mots dans un corpus
 plot.CA(AFC)
 
-corpus=SimpleCorpus(DirSource("~/corpus/"), control = list(language = "lat"))
+corpus=SimpleCorpus(DirSource("~/Documents/Documents/Stylometry/corpus/"))
 #on enlève tous les chiffres qui suivent les mots issus de la lemmatisation de Deucalion
 corpus=tm_map(corpus, removeNumbers)
 #on enlève tous les stopwords de la liste latin perseus du corpus de textes
 corpus_stopwords=tm_map(corpus, removeWords, stopwords("la", source = "perseus"))
 #création de la matrice TermDocument
-dtm=TermDocumentMatrix(corpus_stopwords)
-m <- as.matrix(dtm)
-v <- sort(rowSums(m),decreasing=TRUE)
-d <- data.frame(word = names(v),freq=v)
-nuage=wordcloud(words = d$word, freq = d$freq, min.freq = 1,
-          max.words=200, random.order=FALSE, rot.per=0.35, 
-          colors=brewer.pal(8, "Dark2"))
+dtm=R.temis::build_dtm(corpus_stopwords)
+inspect(dtm)
+#création d'un nuage de mots du corpus
+word_cloud(dtm,colors=brewer.pal(8, "Dark2"), n=100, min.freq=20)
 
 corpus2=import_corpus(paths="~/corpus/", format = "txt", language="lat")
 dtm2=build_dtm(corpus2) #création du tableau lexical (pas de suppression des stopwords)
